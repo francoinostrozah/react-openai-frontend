@@ -1,21 +1,60 @@
-import { GptMessage, MyMessage, TextMessageBox, TypingLoader } from "../../components"
+import { useState } from "react"
+import { GptMessage, MyMessage, TextMessageBox, TextMessageBoxFile, TextMessageBoxSelect, TypingLoader } from "../../components"
+
+interface Message {
+  text: string;
+  isGpt: boolean;
+}
 
 export const OrthographyPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const handlePost = async (text: string) => {
+    setIsLoading(true);
+    setMessages((prev) => [...prev, { text, isGpt: false }])
+
+    setIsLoading(false);
+
+
+  }
+
   return (
     <div className="chat-container">
       <div className="chat-messages">
         <div className="grid grid-cols-12 gap-y-2">
           {/** */}
           <GptMessage text="asdasdasdasdasd" />
-          <MyMessage text="asdasdasdasdasd" />
-          <TypingLoader className="fade-in" />
+
+          {
+            messages.map((message, index) => (
+              message.isGpt ? (<GptMessage key={index} text="Esto es de OpenAI" />)
+                : (<MyMessage key={index} text={message.text} />)))
+          }
+
+          {
+            isLoading && (
+              <div className="col-start-1 col-end-1 fade-in">
+                <TypingLoader />
+              </div>
+            )
+          }
+
         </div>
       </div>
 
-      <TextMessageBox
-        onSendMessage={(message) => console.log(message)}
+      {/* <TextMessageBoxF
+        onSendMessage={handlePost}
         placeholder="Escribe aquí lo que deseas"
         disableCorrections
+      /> */}
+      {/* <TextMessageBoxFile
+        onSendMessage={handlePost}
+        placeholder="Escribe aquí lo que deseas"
+      /> */}
+      <TextMessageBoxSelect
+        onSendMessage={console.log}
+        options={[{ id: "1", text: "hola" }, { id: '2', text: 'mundo' }]}
       />
 
     </div>
