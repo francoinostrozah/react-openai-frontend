@@ -75,7 +75,7 @@ export const OrthographyPage = () => {
       /> */}
       <TextMessageBoxSelect
         onSendMessage={handlePost}
-        options={[{ id: "1", text: "hola" }, { id: '2', text: 'mundo' }]}
+        options={[{ id: "1", text: "hello" }, { id: '2', text: 'world' }]}
       />
 
     </div>

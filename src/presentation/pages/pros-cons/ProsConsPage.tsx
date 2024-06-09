@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { GptMessage, MyMessage, TypingLoader, TextMessageBox } from "../../components";
 import { prosConsUseCase } from "../../../core/use-cases";
 
@@ -8,14 +8,23 @@ interface Message {
 }
 
 export const ProsConsPage = () => {
+  const abortController = useRef(new AbortController());
+  const isRunning = useRef(false);
+
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
 
   const handlePost = async (text: string) => {
+    if (isRunning.current) {
+      abortController.current.abort();
+      abortController.current = new AbortController();
+    }
+
     setIsLoading(true);
+    isRunning.current = true;
     setMessages((prev) => [...prev, { text, isGpt: false }])
 
-    const { ok, content } = await prosConsUseCase(text);
+    const { ok, content } = await prosConsUseCase(text, abortController.current.signal);
 
     if (!ok) {
       setMessages((prev) => [...prev, { text: 'The correction could not be made.', isGpt: true }]);
@@ -53,7 +62,7 @@ export const ProsConsPage = () => {
 
       <TextMessageBox
         onSendMessage={handlePost}
-        placeholder="Escribe aquí lo que deseas"
+        placeholder="Write what you wish."
         disableCorrections
       />
 
