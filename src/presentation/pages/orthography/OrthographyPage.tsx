@@ -42,7 +42,7 @@ export const OrthographyPage = () => {
       <div className="chat-messages">
         <div className="grid grid-cols-12 gap-y-2">
           {/** */}
-          <GptMessage text="asdasdasdasdasd" />
+          <GptMessage text="Hello, you can writte your text in spanish, and I will help you with the corrections" />
 
           {
             messages.map((message, index) => (
