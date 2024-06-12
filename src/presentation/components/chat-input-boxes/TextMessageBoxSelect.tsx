@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 
 interface Props {
-  onSendMessage: (message: string) => void;
+  onSendMessage: (message: string, selectedOption: string) => void;
   placeholder?: string;
   disableCorrections?: boolean;
   options: Option[];
@@ -14,14 +14,15 @@ interface Option {
 
 export const TextMessageBoxSelect = ({ onSendMessage, placeholder, disableCorrections = false, options }: Props) => {
   const [message, setMessage] = useState('')
-  const [selectedOption, setSelectedOption] = useState<string>()
+  const [selectedOption, setSelectedOption] = useState<string>('')
 
   const handleSendMessage = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (message.trim().length === 0) return;
+    if (selectedOption === '') return;
 
-    onSendMessage(message);
+    onSendMessage(message, selectedOption);
     setMessage('');
   }
 
@@ -69,9 +70,6 @@ export const TextMessageBoxSelect = ({ onSendMessage, placeholder, disableCorrec
           <i className="fa-regular fa-paper-plane"></i>
         </button>
       </div>
-
-
-
     </form >
   )
 }
