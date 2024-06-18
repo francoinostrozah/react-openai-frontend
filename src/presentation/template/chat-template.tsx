@@ -44,7 +44,7 @@ export const ChatTemplate = () => {
 
             <TextMessageBoxFile
                 onSendMessage={handlePost}
-                placeholder="Escribe aquí lo que deseas"
+                placeholder="Write what you wish."
                 disableCorrections
             />
 

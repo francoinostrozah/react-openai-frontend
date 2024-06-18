@@ -68,11 +68,10 @@ export const AudioToTextPage = () => {
 
       <TextMessageBoxFile
         onSendMessage={handlePost}
-        placeholder="Escribe aquí lo que deseas"
+        placeholder="Write what you wish."
         disableCorrections
         accept="audio/*"
       />
-
     </div>
   )
 }

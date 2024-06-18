@@ -75,7 +75,7 @@ export const TextToAudioPage = () => {
 
       <TextMessageBoxSelect
         onSendMessage={handlePost}
-        placeholder="Escribe aquí lo que deseas"
+        placeholder="Write what you wish."
         options={voices}
       />
     </div>
