@@ -6,9 +6,6 @@ interface Image {
 }
 
 export const imageGenerationUseCase = async(prompt: string, originalImage?: string, maskImage?: string): Promise<GeneratedImage> => {
-    console.log(prompt);
-    console.log(originalImage);
-    console.log(maskImage);
     try {
         const response = await fetch(`${import.meta.env.VITE_GPT_API}/image-generation`, {
             method: 'POST',
